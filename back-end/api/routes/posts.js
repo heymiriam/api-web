@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
-const { renameSync } = require('node:fs');
+const { renameSync } = require('fs');
 
 //CREATE NEW POST
 router.post("/", async (req, res) => {
@@ -38,7 +38,7 @@ router.put("/:id", async (req, res) => {
 });
 
 //DELETE POST
-outer.delte("/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try{
         const post=  await Post.findById(req.params.id);
         if(post.username===req.body.username){

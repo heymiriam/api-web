@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import './WritePost.scss';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import axios from "axios";
+import { Context } from "../../context/Context";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,18 +23,50 @@ const useStyles = makeStyles((theme) => ({
 
 function WritePost() {
     const classes = useStyles();
+    const [title, setTitle]=useState("");
+    const [desc, setDesc] = useState("");
+    const [file,setFile] = useState(null);
+    const { user } = useContext(Context);
     
       const [age, setAge] = React.useState('');
+      
       const handleChange = (event) => {
         setAge(event.target.value);
       };
-
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newPost = {
+          username: user.username,
+          title,
+          desc,
+        };
+        if (file) {
+          const data =new FormData();
+          const filename = Date.now() + file.name;
+          data.append("name", filename);
+          data.append("file", file);
+          newPost.photo = filename;
+          try {
+            await axios.post("/upload", data);
+          } catch (err) {}
+        }
+        try {
+          const res = await axios.post("/posts", newPost);
+          window.location.replace("/post/" + res.data._id);
+        } catch (err) {}
+      };
     return (
         <div className="writepost">
-
-            <form className={classes.root} className="writepost" noValidate autoComplete="off">
+          {
+          file && (
+            <img src={URL.createObjectURL(file)} alt=" "/>
+            )
+          }
+        
+          
+            <form className={classes.root} className="writepost" noValidate autoComplete="off" onSubmit={handleSubmit}>
               <h1 className='writepost-heading'>Write your story</h1>
-                <TextField id="standard-basic" className="post-title" label="Standard" autoFocus={true} />
+                <TextField id="title" className="post-title" label="Title" autoFocus={true} onChange={(e)=>setTitle(e.target.value)} />
                 <Button
                 variant="contained"
                 component="label"
@@ -40,7 +74,9 @@ function WritePost() {
                 Upload File
                 <input
                     type="file"
+                    id="inputFile"
                     hidden
+                    onChange={(e)=>setFile(e.target.files[0])}
                 />
                 </Button>
 
@@ -62,6 +98,7 @@ function WritePost() {
                 rows={4}
                 defaultValue="Default Value"
                 variant="outlined"
+                onChange={(e)=>setDesc(e.target.value)}
                 />
 
                 <Button type='submit' className='submit-btn' color='primary'>Publish</Button>

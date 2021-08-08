@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Post.scss';
 import Chip from '@material-ui/core/Chip';
 import {Link} from "react-router-dom";
@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 
 
 export default function Post({post}){
+    const publicFolder="localhost:5000/assets/";
     return(
 
         <Card className="post">
@@ -21,7 +22,7 @@ export default function Post({post}){
           
           <div className="post-img">
               {post.photo && (
-              <img className="post-img" src={post.photo} alt=""/>
+              <img className="post-img" src={publicFolder + post.photo} alt=""/>
               )}
               <div>
                   {

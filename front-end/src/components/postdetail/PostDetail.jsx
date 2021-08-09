@@ -13,10 +13,11 @@ function PostDetail() {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
-  const publicFolder = "localhost:5000/assets/";
+  const publicFolder = "http://localhost:5000/assets/";
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [categories, setCategories]=useState("");
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
@@ -25,13 +26,14 @@ function PostDetail() {
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
+      setCategories(res.data.categories);
     };
     fecthPost();
   }, [path]);
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/posts/${post._id}` + path, {
+      await axios.delete(`/posts/${post._id}`, {
         data: { username: user.username },
       });
       window.location.replace("/");
@@ -44,42 +46,62 @@ function PostDetail() {
         username: user.username,
         title,
         desc,
+        categories,
       });
       //window.location.reload();
-      setUpdate(false);
+      setUpdate(false)
     } catch (err) {}
   };
   return (
     <div className="postdetail">
-      {post.photo && <img src={publicFolder + post.photo} alt="" />}
+        
+      {post.photo && (
+          <img src={publicFolder + post.photo} alt="" className="img-upload" />
+        )}
       {update ? (
+          <>
         <TextField
           className="post-title"
           value={title}
           type="text"
           label="Title"
+          size="medium"
+          style={{width:"80%", marginTop:"40px", marginBottom:"40px"}}
           autoFocus={true}
           onChange={(e) => setTitle(e.target.value)}
         />
+        <br></br>
+        </>
       ) : (
-        <h1 className="postdetail-heading">
+        <h1 className="postdetail-heading" >
           {title}
-          {post.username === user?.username && (
-            <>
-              <EditIcon onClick={() => setUpdate(true)} />
-              <DeleteIcon onClick={handleDelete} />
-            </>
-          )}
+          
         </h1>
       )}
+        <div style={{display:"flex", justifyContent:"space-between"}}>
 
-      <Chip></Chip>
+      <Chip label={categories} style={{marginTop:"20px"}}>{categories}</Chip>
+      {post.username === user?.username && (
+            <>
+            <div className="icons">
+              <EditIcon color="primary" className="edit" onClick={() => setUpdate(true)} style={{marginRight:"20px", cursor:"pointer"}} />
+              <DeleteIcon color="secondary" style={{cursor:"pointer"}} className="delete" onClick={handleDelete} />
+            </div>
+            </>
+          )}
+          </div>
+      <br></br>
+      <br></br>
       <div className="post-content">
+          <div className="cont" style={{display:"flex", justifyContent:"flex-start"}}>
         <div className="author">
-          <Link to={`/?user=${post.username}`}>{post.username}</Link>
+          <p style={{color:"black", fontSize:"20px"}}><Link to={`/?user=${post.username}`} className="author" style={{color:"black", textDecoration:'none'}}><b>Author:</b> {post.username} </Link></p>
         </div>
-        <div className="postedtime">
-          <p>{new Date(post.createdAt).toDateString()}</p>
+        <br></br>
+        <div className="postedtime" style={{display:"flex", justifyContent:"flex-end"}}>
+          <p style={{fontSize:"20px", textAlign:"right", marginLeft:"80px"}} className="time">{new Date(post.createdAt).toDateString()}</p>
+        </div>
+        <br></br><br></br><br></br><br></br>
         </div>
         {update ? (
           <TextField
@@ -89,12 +111,13 @@ function PostDetail() {
             value={desc}
             variant="outlined"
             onChange={(e) => setDesc(e.target.value)}
+            style={{width:"100%"}}
           />
         ) : (
-          <div className="post-text">{desc}</div>
+          <div className="post-text" style={{fontSize:"24px"}}>{desc}</div>
         )}
         {update && (
-          <Button color="primary" onClick={handleUpdate}>
+          <Button color="primary" variant="contained" onClick={handleUpdate} style={{margin:"40px 0px"}}>
             Update
           </Button>
         )}

@@ -12,7 +12,7 @@ const path = require("path");
 
 dotenv.config();
 app.use(express.json());
-app.use("/assets", express.static(path.join(__dirname, "/assets")))
+app.use("/assets", express.static(path.join(__dirname, "/assets")));
 
 
 

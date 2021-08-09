@@ -27,18 +27,26 @@ function WritePost() {
     const [desc, setDesc] = useState("");
     const [file,setFile] = useState(null);
     const { user } = useContext(Context);
-    
-      const [age, setAge] = React.useState('');
+
+    const [categories, setCategories] =React.useState('')
+    const [movies, setMovies] = React.useState('');
+    const [travel, setTravel] = React.useState('');
+    const [cooking, setCooking] = React.useState('');
+    const [sports, setSports] = React.useState('');
+    const [random, setRandom] = React.useState('');
+    const [lifestyle, setLifestyle] = React.useState('');
       
       const handleChange = (event) => {
-        setAge(event.target.value);
+        setCategories(event.target.value);
       };
       const handleSubmit = async (e) => {
         e.preventDefault();
+         
         const newPost = {
           username: user.username,
           title,
           desc,
+          categories,
         };
         if (file) {
           const data =new FormData();
@@ -56,20 +64,24 @@ function WritePost() {
         } catch (err) {}
       };
     return (
-        <div className="writepost">
+        <div className="writepost-cont">
           {
           file && (
-            <img src={URL.createObjectURL(file)} alt=" "/>
+            <img src={URL.createObjectURL(file)} alt=" " className="img-upload"/>
             )
           }
         
           
             <form className={classes.root} className="writepost" noValidate autoComplete="off" onSubmit={handleSubmit}>
               <h1 className='writepost-heading'>Write your story</h1>
-                <TextField id="title" className="post-title" label="Title" autoFocus={true} onChange={(e)=>setTitle(e.target.value)} />
+              <div className="write-form">
+                <TextField id="title" className="post-title" size="medium" label="Title" autoFocus={true} onChange={(e)=>setTitle(e.target.value)} />
+                <br></br>
                 <Button
-                variant="contained"
+                className="upload-btn"
+                variant="outlined"
                 component="label"
+                color="primary"
                 >
                 Upload File
                 <input
@@ -79,29 +91,36 @@ function WritePost() {
                     onChange={(e)=>setFile(e.target.files[0])}
                 />
                 </Button>
-
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <div className="cat-container">
+                <InputLabel id="categories" size="medium">Category</InputLabel>
                     <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    onChange={handleChange}
+                    labelId="categories"
+                    id="categories"
+                    className="categories"
+                    size="medium"
+                    value={categories}
+                    onChange={(e)=>setCategories(e.target.value)}
                     >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={travel}>Travel</MenuItem>
+                    <MenuItem value={movies}>Movies</MenuItem>
+                    <MenuItem value={cooking}>Cooking</MenuItem>
+                    <MenuItem value={sports}>Sports</MenuItem>
+                    <MenuItem value={lifestyle}>Lifestyle</MenuItem>
+                    <MenuItem value={random}>Random</MenuItem>
                     </Select>
+                    </div>
                 <TextField
                 id="outlined-multiline-static"
-                label="Multiline"
+                label="Write a story here"
                 multiline
-                rows={4}
-                defaultValue="Default Value"
+                rows={8}
+                size="medium"
+                className="textarea"
                 variant="outlined"
                 onChange={(e)=>setDesc(e.target.value)}
                 />
-
-                <Button type='submit' className='submit-btn' color='primary'>Publish</Button>
+                </div>
+                <Button type='submit' variant="contained" className='submit-btn' color='primary'>Publish</Button>
              </form>
         </div>
     )

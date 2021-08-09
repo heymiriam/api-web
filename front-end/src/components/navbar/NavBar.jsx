@@ -16,7 +16,9 @@ const useStyles = makeStyles((theme) => ({
 
 function NavBar(){
 //const user=true;
+
 const {user,dispatch}=useContext(Context);
+const publicFolder = "http://localhost:5000/assets/"
  const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
@@ -39,10 +41,10 @@ return(
             <Link to="/write" style={{textDecoration:'none', color:'white'}}>Post</Link>
             </Button>
             
-            {user && <Button variant="contained" color="secondary" className="btn" onClick={handleLogout}>"LOGOUT"</Button>} 
+            {user && <Button variant="contained" color="secondary" className="btn" onClick={handleLogout}>LOGOUT</Button>} 
            
             {user ?
-            (<img className="profile-img" src={user.profilePicture}></img>
+            (<img className="profile-img" src={publicFolder + user.profilePicture}></img>
             ) : ( <>
             
             <Button className="btn login-btn" color="primary"><Link to="/login" style={{textDecoration:'none', color:'blue'}}>Login</Link></Button>

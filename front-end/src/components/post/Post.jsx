@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 
 
 export default function Post({post}){
-    const publicFolder="localhost:5000/assets/";
+    const publicFolder="http://localhost:5000/assets/";
     return(
 
         <Card className="post">
@@ -21,9 +21,7 @@ export default function Post({post}){
           <CardActionArea> 
           
           <div className="post-img">
-              {post.photo && (
-              <img className="post-img" src={publicFolder + post.photo} alt=""/>
-              )}
+          {post.photo && <img className="img" src={publicFolder + post.photo} alt=""/>}
               <div>
                   {
                       post.categories.map((ca)=>{

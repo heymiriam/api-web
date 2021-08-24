@@ -17,7 +17,7 @@ app.use("/assets", express.static(path.join(__dirname, "/assets")));
 
 
 
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true
 }).then(console.log("connect to MongoDB")).catch((err) => console.log(err));
 
@@ -39,6 +39,7 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 
-app.listen("5000", ()=>{
+/*app.listen("5000", ()=>{
     console.log("backend is running");
-})
+})*/
+app.listen(process.env.PORT || 5000);

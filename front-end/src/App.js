@@ -8,7 +8,9 @@ import PostPage from './pages/postpage/PostPage';
 import Profile from './pages/profile/Profile';
 import WritePost from './pages/writepost/WritePost';
 import {Context} from './context/Context';
+import axios from "axios";
 
+axios.get('https://blog-webapiweb.herokuapp.com/api/categories').then((response) => { console.log(response.data) })
 function App() {
   //const user=true;
   const { user } = useContext(Context);

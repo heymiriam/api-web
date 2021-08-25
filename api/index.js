@@ -12,10 +12,11 @@ const cors = require('cors');
 
 dotenv.config();
 app.use(express.json());
+app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "/assets")));
 
 
-app.use(cors());
+
 
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true

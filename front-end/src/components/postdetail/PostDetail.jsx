@@ -22,7 +22,7 @@ function PostDetail() {
 
   useEffect(() => {
     const fecthPost = async () => {
-      const res = await axios.get("/posts/" + path);
+      const res = await axios.get("https://blog-webapiweb.herokuapp.com/posts/" + path);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
@@ -33,7 +33,7 @@ function PostDetail() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/posts/${post._id}`, {
+      await axios.delete(`https://blog-webapiweb.herokuapp.com/posts/${post._id}`, {
         data: { username: user.username },
       });
       window.location.replace("/");

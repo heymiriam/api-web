@@ -8,14 +8,14 @@ const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
 const path = require("path");
-
+const cors = require('cors');
 
 dotenv.config();
 app.use(express.json());
 app.use("/assets", express.static(path.join(__dirname, "/assets")));
 
 
-
+app.use(cors());
 
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true

@@ -59,8 +59,8 @@ function WritePost() {
           } catch (err) {}
         }
         try {
-          const res = await axios.post("https://blog-webapiweb.herokuapp.com//posts", newPost);
-          window.location.replace("https://blog-webapiweb.herokuapp.com//post/" + res.data._id);
+          const res = await axios.post("https://blog-webapiweb.herokuapp.com/api/posts", newPost).then((response) => { console.log(response.data) });
+          window.location.replace("https://blog-webapiweb.herokuapp.com/api/post/" + res.data._id).then((response) => { console.log(response.data) });
         } catch (err) {}
       };
     return (

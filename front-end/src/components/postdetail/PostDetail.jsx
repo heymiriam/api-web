@@ -22,7 +22,7 @@ function PostDetail() {
 
   useEffect(() => {
     const fecthPost = async () => {
-      const res = await axios.get("https://blog-webapiweb.herokuapp.com/posts/" + path);
+      const res = await axios.get("https://blog-webapiweb.herokuapp.com/api/posts/" + path).then((response) => { console.log(response.data) });
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
@@ -33,21 +33,21 @@ function PostDetail() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`https://blog-webapiweb.herokuapp.com/posts/${post._id}`, {
+      await axios.delete(`https://blog-webapiweb.herokuapp.com/api/posts/${post._id}`, {
         data: { username: user.username },
-      });
+      }).then((response) => { console.log(response.data) });
       window.location.replace("/");
     } catch (err) {}
   };
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`/posts/${post._id}`, {
+      await axios.put(`https://blog-webapiweb.herokuapp.com/api/posts/${post._id}`, {
         username: user.username,
         title,
         desc,
         categories,
-      });
+      }).then((response) => { console.log(response.data) });
       //window.location.reload();
       setUpdate(false)
     } catch (err) {}

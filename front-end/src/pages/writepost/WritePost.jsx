@@ -55,12 +55,12 @@ function WritePost() {
           data.append("file", file);
           newPost.photo = filename;
           try {
-            await axios.post("https://blog-webapiweb.herokuapp.com//upload", data);
+            await axios.post("/upload", data);
           } catch (err) {}
         }
         try {
-          const res = await axios.post("https://blog-webapiweb.herokuapp.com/api/posts", newPost).then((response) => { console.log(response.data) });
-          window.location.replace("https://blog-webapiweb.herokuapp.com/api/post/" + res.data._id).then((response) => { console.log(response.data) });
+          const res = await axios.post("/posts", newPost);
+          window.location.replace("/post/" + res.data._id);
         } catch (err) {}
       };
     return (

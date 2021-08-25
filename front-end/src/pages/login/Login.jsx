@@ -49,10 +49,10 @@ export default function Login() {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("https://blog-webapiweb.herokuapp.com/api/auth/login", {
+      const res = await axios.post("/auth/login", {
         username: userRef.current.value,
         password: passwordRef.current.value,
-      }).then((response) => { console.log(response.data) });
+      });
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });

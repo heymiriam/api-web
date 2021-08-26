@@ -9,14 +9,10 @@ const categoryRoute = require("./routes/categories");
 const multer = require("multer");
 const path = require("path");
 const cors = require('cors');
-var PORT =process.env.PORT || 5000;
 
 dotenv.config();
 app.use(express.json());
 app.use(cors());
-
-   
- 
 app.use("/assets", express.static(path.join(__dirname, "/assets")));
 
 

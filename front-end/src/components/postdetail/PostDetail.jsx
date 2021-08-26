@@ -42,7 +42,7 @@ function PostDetail() {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`https://blog-webapiweb.herokuapp.com/posts/${post._id}`, {
+      await axios.put(` https://blogapi-web.herokuapp.com/posts/${post._id}`, {
         username: user.username,
         title,
         desc,

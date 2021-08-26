@@ -18,7 +18,7 @@ function NavBar(){
 //const user=true;
 
 const {user,dispatch}=useContext(Context);
-const publicFolder = "https://blog-webapiweb.herokuapp.com/assets/"
+const publicFolder = " https://blogapi-web.herokuapp.com/assets/"
  const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };

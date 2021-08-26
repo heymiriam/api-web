@@ -22,7 +22,7 @@ function PostDetail() {
 
   useEffect(() => {
     const fecthPost = async () => {
-      const res = await axios.get("https://blog-webapiweb.herokuapp.com/api/posts/" + path)
+      const res = await axios.get("https://blog-webapiweb.herokuapp.com/api/posts/" + path);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);

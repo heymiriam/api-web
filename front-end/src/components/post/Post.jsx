@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 
 
 export default function Post({post}){
-    const publicFolder="http://localhost:5000/assets/";
+    const publicFolder="https://blog-webapiweb.herokuapp.com/assets";
     return(
 
         <Card className="post">

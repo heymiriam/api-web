@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Chip from "@material-ui/core/Chip";
+
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { useHistory, useLocation } from "react-router-dom";
@@ -22,7 +22,7 @@ function PostDetail() {
 
   useEffect(() => {
     const fecthPost = async () => {
-      const res = await axios.get("https://blog-webapiweb.herokuapp.com/api/posts/" + path);
+      const res = await axios.get("https://blogapi-web.herokuapp.com/api/posts/" + path);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
@@ -33,7 +33,7 @@ function PostDetail() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`https://blog-webapiweb.herokuapp.com/api/posts/${post._id}`, {
+      await axios.delete(`https://blogapi-web.herokuapp.com/api/posts/${post._id}`, {
         data: { username: user.username },
       });
       window.location.replace("/");
@@ -42,7 +42,7 @@ function PostDetail() {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(` https://blogapi-web.herokuapp.com/posts/${post._id}`, {
+      await axios.put(`https://blogapi-web.herokuapp.com/api/posts/${post._id}`, {
         username: user.username,
         title,
         desc,
@@ -80,7 +80,7 @@ function PostDetail() {
       )}
         <div style={{display:"flex", justifyContent:"space-between"}}>
 
-      <Chip label={categories} style={{marginTop:"20px"}}>{categories}</Chip>
+     
       {post.username === user?.username && (
             <>
             <div className="icons">

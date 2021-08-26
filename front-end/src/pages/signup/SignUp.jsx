@@ -47,12 +47,12 @@ function SignUp() {
       setError(false);
       try{
         
-        const res = await axios.post(" https://blogapi-web.herokuapp.com/auth/signup",{
+        const res = await axios.post("https://blogapi-web.herokuapp.com/api/auth/signup",{
           username,
           email,
           password,
         });
-        res.data && window.location.replace(" https://blogapi-web.herokuapp.com/login");
+        res.data && window.location.replace("https://blogapi-web.herokuapp.com/api/auth/login");
       }catch(err){
         setError(true);
       }

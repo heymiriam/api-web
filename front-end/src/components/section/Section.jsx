@@ -10,7 +10,7 @@ function Section(){
     useEffect(()=>{
         const fetchCats=async()=>{
             
-            const res = await axios.get(" https://blogapi-web.herokuapp.com/api/categories")
+            const res = await axios.get("https://blogapi-web.herokuapp.com/api/categories")
             setCategory(res.data)
         }
         fetchCats();

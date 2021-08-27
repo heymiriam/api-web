@@ -2,10 +2,26 @@ import React, {useEffect, useState} from 'react';
 import './Section.scss';
 import axios from 'axios';
 import {Link} from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+
+const useStyles = makeStyles((theme) => ({
+    
+    footer: {
+      padding: theme.spacing(3, 2),
+      marginTop: 'auto',
+      backgroundColor:"black",
+      color:"white",
+        
+    },
+  }));
+
 
 
 function Section(){
     const [category, setCategory]=useState([]);
+    const classes = useStyles();
 
     useEffect(()=>{
         const fetchCats=async()=>{
@@ -35,8 +51,9 @@ function Section(){
                    
 
                 </ul>
+               
             </div>
-           
+            
         </div>    
     )
 };

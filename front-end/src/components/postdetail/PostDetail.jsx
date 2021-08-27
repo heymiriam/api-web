@@ -13,7 +13,7 @@ function PostDetail() {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
-  const publicFolder = "http://localhost:5000/assets/";
+  const publicFolder = "https://blogapi-web.herokuapp.com/assets/";
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
